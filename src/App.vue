@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" :class="typeof weather.main != 'undefined' && weather.main.temp > 25 ? 'warm':''">
     <main>
       <div class="search-box">
         <input type="text" class="search-bar" placeholder="Search for a Place..." v-model="query" @keypress="fetchWeather"/>
@@ -8,7 +8,7 @@
       <div class="weather-wrapper" v-if="typeof weather.main != 'undefined'">
         <div class="location-box">
           <div class="location">{{weather.name}}, {{weather.sys.country}}</div>
-          <div class="date">Wednesday 22 June 2022</div>
+          <div class="date">{{dateBuilder()}}</div>
         </div>
 
         <div class="weather-box">
@@ -75,6 +75,10 @@ body{
   background-size: cover;
   background-position: bottom;
   transition: 0.4s;
+}
+
+#app.warm{
+  background-image: url('./assets/hot.jpg');
 }
 
 main{
